@@ -1,10 +1,26 @@
 import React,{Fragment,useState} from 'react'
 import {Link} from 'react-router-dom'
+import './NavBar.css'
+import Button from './Button'
+
 const NavBar = () => {
     const [click,setClick]=useState(false);
-
+    const [button,setButton]=useState(true);
     const handleClick = () =>setClick(!click);
     const closeMobileMenu = () => setClick(false);
+
+    //displays on mobile
+
+    const showButton = () =>{
+        if(window.innerWidth <=900){
+            setButton(false)
+        }
+        else{
+            setButton(true)
+        }
+    }
+    window.addEventListener('resize',showButton)
+    
     return ( 
         <Fragment>
             <nav className="navbar">
@@ -22,16 +38,19 @@ const NavBar = () => {
                             className='nav-links' 
                             onClick={closeMobileMenu}
                             >
-                                Services
+                            Services
                             </Link>
+                        </li>
 
+                        <li className="nav-item">
                             <Link to='/products' 
                             className='nav-links' 
                             onClick={closeMobileMenu}
                             >
                             Products
                             </Link>
-
+                        </li>
+                        <li className="nav-item">
                             <Link to='/sign-up' 
                             className='nav-links' 
                             onClick={closeMobileMenu}
@@ -39,7 +58,9 @@ const NavBar = () => {
                             Sign Up
                             </Link>
                         </li>
+                        
                     </ul>
+                    {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>}
                 </div>
             </nav>
         </Fragment>
